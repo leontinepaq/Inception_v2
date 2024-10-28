@@ -1,0 +1,99 @@
+services:
+#mandatory
+  mariadb:
+    build: ./requirements/mariadb
+    image: mariadb
+    container_name: mariadb
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - inception
+    env_file: ".env"
+    secrets:
+      - db_pwd
+      - wp_user_pwd
+      - wp_admin_pwd
+
+  nginx:
+    build: ./requirements/nginx
+    image: nginx
+    container_name: nginx
+    volumes:
+      - wp:/var/www/wordpress
+    networks:
+      - inception
+    env_file: ".env"
+    ports:
+      - "443:443"
+    depends_on:
+      - wordpress
+
+  wordpress:
+    build: ./requirements/wordpress
+    image: wordpress
+    container_name: wordpress
+    volumes:
+      - wp:/var/www/wordpress
+      - redis:/var/www/redis
+    networks:
+      - inception
+    env_file: ".env"
+    secrets:
+      - db_pwd
+      - wp_user_pwd
+      - wp_admin_pwd
+    depends_on:
+      - mariadb
+
+#bonus
+  redis:
+      # ne fonctionne pas
+      # build: ./requirements/bonus/redis 
+      image: redis
+      container_name: redis
+      networks:
+        - inception
+      ports:
+        - '6379:6379'
+      restart: always
+      expose:
+        - '6379'
+      depends_on:
+        - wordpress
+      volumes:
+      - redis:/data
+
+networks:
+  inception:
+    name: inception
+
+secrets:
+  db_pwd:
+    file: ../secrets/db_pwd.txt
+  wp_user_pwd:
+    file: ../secrets/wp_user_pwd.txt
+  wp_admin_pwd:
+    file: ../secrets/wp_admin_pwd.txt
+
+volumes:
+  db:
+    name: db
+    driver: local
+    driver_opts:
+      device: /home/lpaquatt/data/db
+      o : bind
+      type : none
+  wp:
+    name: wp
+    driver: local
+    driver_opts:
+      device: /home/lpaquatt/data/wp
+      o : bind
+      type : none
+  redis:
+    name: redis
+    driver: local
+    driver_opts:
+      device: /home/lpaquatt/data/redis
+      o : bind
+      type : none
