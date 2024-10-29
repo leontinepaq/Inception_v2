@@ -3,11 +3,10 @@ RUN		apt-get update -y
 RUN		apt-get upgrade -y
 RUN		apt-get install vsftpd -y
 RUN		sed -i 's/^anonymous_enable=NO/anonymous_enable=YES/' /etc/vsftpd.conf
-CMD		["vsftpd"]
-# COPY ./entrypoint.sh /entrypoint.sh
-# RUN chmod +x /entrypoint.sh
-# ENTRYPOINT ["/entrypoint.sh"]
 
-# RUN		sed -i 's/^listen=NO/listen=YES/' /etc/vsftpd.conf
-# RUN		etc/init.d/vsftpd restart
+# CMD		["vsftpd", "/etc/vsftpd.conf"]
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
 # CMD 	["tail", "-f", "/dev/null"]

@@ -68,8 +68,8 @@ services:
         - '21:21'
         - '20:20'
       restart: always
-      # volumes:
-      #   - wp:/run/vsftp/
+      volumes:
+        - wp:/srv/ftp
 
 networks:
   inception:
