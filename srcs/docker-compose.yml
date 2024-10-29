@@ -58,6 +58,18 @@ services:
         - '6379'
       depends_on:
         - wordpress
+  ftp:
+      build: ./requirements/bonus/ftp
+      image: ftp
+      container_name: ftp
+      networks:
+        - inception
+      ports:
+        - '21:21'
+        - '20:20'
+      restart: always
+      # volumes:
+      #   - wp:/run/vsftp/
 
 networks:
   inception:

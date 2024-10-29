@@ -10,6 +10,12 @@ up:
 			mkdir -p /home/lpaquatt/data/redis
 			docker compose -f ./srcs/docker-compose.yml up -d --build
 
+up_no_build:
+			mkdir -p /home/lpaquatt/data/db
+			mkdir -p /home/lpaquatt/data/wp
+			mkdir -p /home/lpaquatt/data/redis
+			docker compose -f ./srcs/docker-compose.yml up -d 
+
 down:
 			docker compose -f ./srcs/docker-compose.yml down 
 
