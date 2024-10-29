@@ -34,7 +34,6 @@ services:
     container_name: wordpress
     volumes:
       - wp:/var/www/wordpress
-      - redis:/var/www/redis
     networks:
       - inception
     env_file: ".env"
@@ -47,8 +46,7 @@ services:
 
 #bonus
   redis:
-      # ne fonctionne pas
-      # build: ./requirements/bonus/redis 
+      build: ./requirements/bonus/redis 
       image: redis
       container_name: redis
       networks:
@@ -60,8 +58,6 @@ services:
         - '6379'
       depends_on:
         - wordpress
-      volumes:
-      - redis:/data
 
 networks:
   inception:
@@ -88,12 +84,5 @@ volumes:
     driver: local
     driver_opts:
       device: /home/lpaquatt/data/wp
-      o : bind
-      type : none
-  redis:
-    name: redis
-    driver: local
-    driver_opts:
-      device: /home/lpaquatt/data/redis
       o : bind
       type : none

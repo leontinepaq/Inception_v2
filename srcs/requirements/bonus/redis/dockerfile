@@ -3,9 +3,4 @@ RUN		apt-get update -y
 RUN		apt-get upgrade -y
 RUN		apt-get install redis-server -y
 RUN		apt install php-redis -y
-RUN 	apt-get install systemd -y
-RUN		systemctl enable redis-server
-
-CMD 	["redis-server", "--bind 0.0.0.0", "/etc/redis/redis.conf"]
-# CMD 	["tail", "-f", "/dev/null"]
-EXPOSE	6379
+CMD 	["redis-server", "--protected-mode no"]
