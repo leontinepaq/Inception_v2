@@ -1,75 +1,85 @@
 services:
-#mandatory
-  mariadb:
-    build: ./requirements/mariadb
-    image: mariadb
-    container_name: mariadb
-    volumes:
-      - db:/var/lib/mysql
-    networks:
-      - inception
-    env_file: ".env"
-    secrets:
-      - db_pwd
-      - wp_user_pwd
-      - wp_admin_pwd
+# #mandatory
+#   mariadb:
+#     build: ./requirements/mariadb
+#     image: mariadb
+#     container_name: mariadb
+#     volumes:
+#       - db:/var/lib/mysql
+#     networks:
+#       - inception
+#     env_file: ".env"
+#     secrets:
+#       - db_pwd
+#       - wp_user_pwd
+#       - wp_admin_pwd
 
-  nginx:
-    build: ./requirements/nginx
-    image: nginx
-    container_name: nginx
-    volumes:
-      - wp:/var/www/wordpress
-    networks:
-      - inception
-    env_file: ".env"
-    ports:
-      - "443:443"
-    depends_on:
-      - wordpress
+#   nginx:
+#     build: ./requirements/nginx
+#     image: nginx
+#     container_name: nginx
+#     volumes:
+#       - wp:/var/www/wordpress
+#     networks:
+#       - inception
+#     env_file: ".env"
+#     ports:
+#       - "443:443"
+#       - "80:80"
+#     depends_on:
+#       - wordpress
 
-  wordpress:
-    build: ./requirements/wordpress
-    image: wordpress
-    container_name: wordpress
-    volumes:
-      - wp:/var/www/wordpress
-    networks:
-      - inception
-    env_file: ".env"
-    secrets:
-      - db_pwd
-      - wp_user_pwd
-      - wp_admin_pwd
-    depends_on:
-      - mariadb
+#   wordpress:
+#     build: ./requirements/wordpress
+#     image: wordpress
+#     container_name: wordpress
+#     volumes:
+#       - wp:/var/www/wordpress
+#     networks:
+#       - inception
+#     env_file: ".env"
+#     secrets:
+#       - db_pwd
+#       - wp_user_pwd
+#       - wp_admin_pwd
+#     depends_on:
+#       - mariadb
 
-#bonus
-  redis:
-      build: ./requirements/bonus/redis 
-      image: redis
-      container_name: redis
+# #bonus
+#   redis:
+#       build: ./requirements/bonus/redis 
+#       image: redis
+#       container_name: redis
+#       networks:
+#         - inception
+#       ports:
+#         - '6379:6379'
+#       restart: always
+#       expose:
+#         - '6379'
+#       depends_on:
+#         - wordpress
+#   ftp:
+#       build: ./requirements/bonus/ftp
+#       image: ftp
+#       container_name: ftp
+#       networks:
+#         - inception
+#       ports:
+#         - '21:21'
+#         - '20:20'
+#       restart: always
+#       volumes:
+#         - wp:/srv/ftp
+  hugo:
+      build: ./requirements/bonus/hugo
+      image: hugo
+      container_name: hugo
       networks:
         - inception
       ports:
-        - '6379:6379'
+        - '1313:1313'
       restart: always
-      expose:
-        - '6379'
-      depends_on:
-        - wordpress
-  ftp:
-      build: ./requirements/bonus/ftp
-      image: ftp
-      container_name: ftp
-      networks:
-        - inception
-      ports:
-        - '21:21'
-        - '20:20'
-      restart: always
-      volumes:
-        - wp:/srv/ftp
 
 networks:
   inception:

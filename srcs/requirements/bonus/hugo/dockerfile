@@ -1,0 +1,7 @@
+FROM	debian:bullseye
+RUN		apt-get update -y
+RUN		apt-get upgrade -y
+RUN		apt-get install hugo -y
+RUN		apt-get install git -y
+# CMD		["vsftpd", "/etc/vsftpd.conf"]
+CMD 	["tail", "-f", "/dev/null"]
