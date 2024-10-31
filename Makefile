@@ -2,7 +2,10 @@ SRCS =	srcs/requirements/mariadb/dockerfile\
 		srcs/requirements/nginx/dockerfile\
 		srcs/requirements/wordpress/dockerfile
 
-all:		up
+all:		generate_site up
+
+generate_site:
+			@bash srcs/generate-site.sh
 
 up:
 			mkdir -p /home/lpaquatt/data/db
@@ -34,3 +37,4 @@ delete_volumes:
 			docker volume prune
 			docker volume rm db wp redis
 			sudo rm -rf /home/lpaquatt/data/wp /home/lpaquatt/data/db /home/lpaquatt/data/redis
+
