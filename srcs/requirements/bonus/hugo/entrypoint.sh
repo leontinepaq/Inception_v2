@@ -1,16 +1,12 @@
-hugo new site quickstart
-cd quickstart
+#!/bin/bash
+
+hugo new site my_site
+cd my_site
+
 git init
 git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
-echo "theme = 'ananke'" >> hugo.toml
-
-hugo new content content/posts/my-first-post.md
-hugo new content/posts/my-first-post.md
-echo "## Introduction
-
-This is **bold** text, and this is *emphasized* text.
-
-Visit the [Hugo](https://gohugo.io) website!" >> content/content
+cp /var/site/hugo.toml .
+cp -r /var/site/content/. ./content/
+cp -r /var/site/static/. ./static/
 hugo server -D --bind 0.0.0.0
 
-https://www.digitalocean.com/community/tutorials/how-to-install-go-on-debian-10

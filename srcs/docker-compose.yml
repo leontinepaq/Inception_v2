@@ -80,6 +80,8 @@ services:
       ports:
         - '1313:1313'
       restart: always
+      volumes:
+        - hugo:/public
 
 networks:
   inception:
@@ -106,5 +108,12 @@ volumes:
     driver: local
     driver_opts:
       device: /home/lpaquatt/data/wp
+      o : bind
+      type : none
+  hugo:
+    name: hugo
+    driver: local
+    driver_opts:
+      device: /home/lpaquatt/data/hugo
       o : bind
       type : none

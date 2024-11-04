@@ -5,6 +5,7 @@ SRCS =	srcs/requirements/mariadb/dockerfile\
 all:		generate_site up
 
 generate_site:
+			mkdir -p /home/lpaquatt/data/hugo
 			@bash srcs/generate-site.sh
 
 up:
@@ -27,14 +28,13 @@ stop:
 
 reset:		
 			docker compose -f ./srcs/docker-compose.yml down
-			docker rmi wordpress nginx mariadb redis
-			docker volume rm db wp  redis
-			sudo rm -rf /home/lpaquatt/data/wp /home/lpaquatt/data/db /home/lpaquatt/data/redis
+			docker rmi wordpress nginx mariadb redis hugo
+			docker volume rm db wp redis hugo
+			sudo rm -rf /home/lpaquatt/data/wp /home/lpaquatt/data/db /home/lpaquatt/data/redis /home/lpaquatt/data/hugo
 			docker system prune 
 
 delete_volumes:
 			docker compose -f ./srcs/docker-compose.yml down
 			docker volume prune
-			docker volume rm db wp redis
-			sudo rm -rf /home/lpaquatt/data/wp /home/lpaquatt/data/db /home/lpaquatt/data/redis
-
+			docker volume rm db wp redis hugo
+			sudo rm -rf /home/lpaquatt/data/wp /home/lpaquatt/data/db /home/lpaquatt/data/redis /home/lpaquatt/data/hugo

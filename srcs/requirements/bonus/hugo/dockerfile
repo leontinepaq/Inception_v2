@@ -5,28 +5,20 @@ RUN		apt-get install git -y
 
 #installing go
 RUN		apt-get install curl -y
-# RUN		curl -O https://dl.google.com/go/go1.12.7.linux-amd64.tar.gz
-# RUN		tar xvf go1.12.7.linux-amd64.tar.gz
-# # RUN 	chown -R root:root ./go
-# RUN 	mv go /usr/local
-
-RUN 	curl -o /usr/local/go1.12.7.linux-amd64.tar.gz https://dl.google.com/go/go1.12.7.linux-amd64.tar.gz && \
+RUN		curl -o /usr/local/go1.12.7.linux-amd64.tar.gz https://dl.google.com/go/go1.12.7.linux-amd64.tar.gz && \
 		tar -xvf /usr/local/go1.12.7.linux-amd64.tar.gz -C /usr/local && \
 		rm /usr/local/go1.12.7.linux-amd64.tar.gz
 ENV 	GOPATH=/root/work
 ENV 	PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+COPY 	./hugo /usr/local/bin
+RUN		chmod +x /usr/local/bin/hugo
 
-# A TESTER
-RUN		curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-RUN		echo >> /root/.bashrc
-RUN		echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /root/.bashrc
-RUN		apt-get install build-essential
-RUN		brew install hugo
+COPY	./site /var/site
 
-# RUN		apt-get install hugo -y
+
+COPY	./entrypoint.sh /home/entrypoint.sh
+RUN		chmod +x /home/entrypoint.sh
+ENTRYPOINT [ "/home/entrypoint.sh" ]
+
 # CMD		["hugo server", "-D", "--bind 0.0.0.0"]
-CMD 	["tail", "-f", "/dev/null"]
-
-
-
-#remonter l'installation de git
+# CMD 	["tail", "-f", "/dev/null"]
