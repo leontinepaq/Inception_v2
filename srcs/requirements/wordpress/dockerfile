@@ -1,10 +1,10 @@
 FROM			debian:bullseye
-RUN				apt-get update -y
-RUN				apt-get upgrade -y
-RUN				apt-get install -y php curl php-fpm
-RUN				apt-get install -y redis-server php-redis
-RUN				apt-get install -y php-mysql
-RUN				apt-get install -y mariadb-client
+RUN				apt update -y
+RUN				apt upgrade -y
+RUN				apt install -y php curl php-fpm
+RUN				apt install -y redis-server php-redis
+RUN				apt install -y php-mysql
+RUN				apt install -y mariadb-client
 COPY			./init_wp.sh /home/init_wp.sh
 RUN				chmod 777 /home/init_wp.sh
 ENTRYPOINT		[ "/home/init_wp.sh" ]
