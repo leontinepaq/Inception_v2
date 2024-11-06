@@ -58,8 +58,7 @@ services:
       restart: always
       expose:
         - '6379'
-      depends_on:
-        - wordpress
+
   ftp:
       build: ./requirements/bonus/ftp
       image: ftp
@@ -72,6 +71,7 @@ services:
       restart: always
       volumes:
         - wp:/srv/ftp
+
   # adminer:
   #     # build: ./requirements/bonus/adminer
   #     image: adminer
