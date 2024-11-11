@@ -1,0 +1,7 @@
+ apt install net-tools
+ netstat -tuln | grep 8080
+
+ sudo lsof -i :80
+
+ apt install iputils-ping
+ 
