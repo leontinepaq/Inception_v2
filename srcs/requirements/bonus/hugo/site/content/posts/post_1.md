@@ -1,9 +1,9 @@
 ---
 date: 2024-11-04T10:58:08-04:00
-description: "Ophelia"
+title: "Ophelia"
+description: "A painting of Ophelia"
 featured_image: "/images/Ophelia_1894.jpg"
 tags: ["Painting"]
-title: "Ophelia"
 ---
 
 {{< figure src="/images/Ophelia_1894.jpg" title="Ophelia (John William Waterhouse) - oil on canvas" >}}

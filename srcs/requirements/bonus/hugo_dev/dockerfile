@@ -1,0 +1,17 @@
+FROM		debian:bullseye
+RUN			apt update -y && apt upgrade -y
+RUN			apt install git curl -y 
+
+#installing go
+RUN			curl -o /usr/local/go1.12.7.linux-amd64.tar.gz https://dl.google.com/go/go1.12.7.linux-amd64.tar.gz && \
+			tar -xvf /usr/local/go1.12.7.linux-amd64.tar.gz -C /usr/local && \
+			rm /usr/local/go1.12.7.linux-amd64.tar.gz
+ENV 		GOPATH=/root/work
+ENV 		PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
+COPY		./site /var/site
+COPY		./entrypoint.sh /home/entrypoint.sh
+COPY 		./hugo /usr/local/bin
+RUN			chmod +x /usr/local/bin/hugo && chmod +x /home/entrypoint.sh
+
+ENTRYPOINT	[ "/home/entrypoint.sh" ]
