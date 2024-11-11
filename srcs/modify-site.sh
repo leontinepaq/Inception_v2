@@ -17,7 +17,9 @@ fi
 mkdir -p "$OUTPUT_DIR"
 
 # Copying the site from the base repository
-rm -r "$MODIF_REPO" 
+if [ ! -d "$MODIF_REPO" ]; then
+	rm -r "$MODIF_REPO"
+fi 
 cp -r "$BASE_REPO" "$MODIF_REPO"
 
 # Launching the docker
@@ -28,9 +30,7 @@ fi
 docker build -t hugo_dev ./srcs/requirements/bonus/hugo_dev
 docker run --rm -d --name hugo_dev -p 1313:1313 -v $OUTPUT_DIR:/my_site/public hugo_dev
 
-if [ ! -d "$MODIF_REPO" ]; then
-	rm -r "$MODIF_REPO"
-fi 
+rm -r "$MODIF_REPO"
 
 echo "Waiting for /my_site directory to be created in the container..."
 until docker exec hugo_dev test -d /my_site/  ; do
