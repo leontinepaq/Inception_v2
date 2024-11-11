@@ -1,8 +1,9 @@
-FROM		debian:bullseye
-RUN			apt update -y
-RUN			apt upgrade -y
-# RUN			apt install -y php php-fpm
-RUN			apt install adminer -y
-# RUN			apt install -y php-mysql
-# RUN			apt install -y mariadb-server mariadb-client
-CMD 		["tail", "-f", "/dev/null"]
+FROM	debian:bullseye
+RUN		apt update -y && \
+		apt upgrade -y && \
+		apt install -y php php-cli php-mbstring php-mysql mariadb-client wget && \
+		rm -rf /var/lib/apt/lists/* && \
+		mkdir -p /usr/share/adminer && \
+		wget -O /usr/share/adminer/index.php https://www.adminer.org/latest.php
+
+CMD 	["php", "-S", "0.0.0.0:8080", "-t", "/usr/share/adminer"]

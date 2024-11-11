@@ -1,6 +1,4 @@
 FROM	debian:bullseye
-RUN		apt update -y
-RUN		apt upgrade -y
-RUN		apt install redis-server -y
-RUN		apt install php-redis -y
+RUN		apt update -y && apt upgrade -y && apt install redis-server -y \
+		&& apt install php-redis -y
 CMD 	["redis-server", "--protected-mode no"]
