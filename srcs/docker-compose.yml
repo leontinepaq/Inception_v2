@@ -72,17 +72,17 @@ services:
       volumes:
         - wp:/srv/ftp
 
-  # adminer:
-  #     # build: ./requirements/bonus/adminer
-  #     image: adminer
-  #     container_name: adminer
-  #     networks:
-  #       - inception
-  #     ports:
-  #       -8080:8080
-  #     restart: always
-  #     depends_on:
-  #       - mariadb
+  adminer:
+      build: ./requirements/bonus/adminer
+      image: adminer
+      container_name: adminer
+      networks:
+        - inception
+      ports:
+        - '8080:8080'
+      restart: always
+      depends_on:
+        - mariadb
 
 networks:
   inception:
