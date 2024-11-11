@@ -82,7 +82,7 @@ services:
         - '8080:8080'
       restart: always
       depends_on:
-t commit=        - mariadb
+        - mariadb
 
 networks:
   inception:
