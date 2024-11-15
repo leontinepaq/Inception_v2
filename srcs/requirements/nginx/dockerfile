@@ -2,8 +2,14 @@ FROM	debian:bullseye
 RUN		apt update -y && apt upgrade -y \
 		&& apt install nginx -y
 RUN		apt install -y openssl
-RUN		openssl req -x509 -nodes -out /home/inception.crt -keyout \
-		/home/inception.key -subj "/C=FR/ST=Paris/L=Paris/O=42/OU=42/CN=lpaquatt.42.fr/UID=admin_name"
+RUN		openssl req -x509 -nodes \
+		-out /home/inception.crt \
+		-keyout /home/inception.key \
+		-subj "/C=FR/ST=Paris/L=Paris/O=42/OU=42/CN=lpaquatt.42.fr/UID=admin_name"
+RUN		openssl req -x509 -nodes \
+		-out /home/static_site.crt \
+		-keyout /home/static_site.key \
+		-subj "/C=FR/ST=Paris/L=Paris/O=42/OU=42/CN=jwwaterhouse.42.fr/UID=admin_name"
 COPY	./nginx.conf /etc/nginx/nginx.conf
 RUN		mkdir -p /data/www/
 CMD		["nginx", "-g", "daemon off;"]
