@@ -5,7 +5,7 @@ BASE_REPO="./srcs/requirements/bonus/hugo/site"
 MODIF_REPO="./srcs/requirements/bonus/hugo_dev/site"
 
 # Confirm deleting the published site in the volume
-if [ -d "$OUTPUT_DIR" ] && [ ! -z "$(ls -A "$OUTPUT_DIR" 2>/dev/null)" ]; then
+if [ -d "$OUTPUT_DIR/site" ] && [ ! -z "$(ls -A "$OUTPUT_DIR/site" 2>/dev/null)" ]; then
 	read -p "Are you sure you want to delete the current site in '$OUTPUT_DIR'? (y/n): " confirm
 	if [[ "$confirm" != [yY] ]]; then
 		echo "Modification canceled"
@@ -17,7 +17,7 @@ fi
 mkdir -p "$OUTPUT_DIR"
 
 # Copying the site from the base repository
-if [ ! -d "$MODIF_REPO" ]; then
+if [ -d "$MODIF_REPO" ]; then
 	rm -r "$MODIF_REPO"
 fi 
 cp -r "$BASE_REPO" "$MODIF_REPO"
