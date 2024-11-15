@@ -26,7 +26,6 @@ services:
     env_file: ".env"
     ports:
       - "443:443"
-      - "80:80"
     depends_on:
       - wordpress
 
